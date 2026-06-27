@@ -83,7 +83,7 @@ AgentPrizm exposes a remote MCP endpoint:
 https://agentprizm.com/api/mcp
 ```
 
-See:
+**The same config shape works across MCP clients.** Claude Code, Cursor, and Claude Desktop all use an identical `mcpServers` entry — the remote URL plus an `Authorization: Bearer ap_...` header — so the snippet is the same for each; only the file each client reads differs:
 
 - [`examples/mcp/claude-code.json`](examples/mcp/claude-code.json)
 - [`examples/mcp/cursor-mcp.json`](examples/mcp/cursor-mcp.json)
