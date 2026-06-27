@@ -1,0 +1,16 @@
+{
+  "name": "agentprizm-javascript-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal JavaScript examples for AgentPrizm REST integrations.",
+  "scripts": {
+    "quickstart": "node src/quickstart.mjs",
+    "support": "node src/support-agent.mjs",
+    "sales": "node src/sales-agent.mjs",
+    "coding": "node src/coding-agent.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
