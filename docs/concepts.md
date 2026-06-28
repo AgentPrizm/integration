@@ -46,7 +46,7 @@ Examples:
 - shipping delays
 - vendor windows
 
-If a memory is stale, the agent should verify instead of presenting it as current.
+Expired facts (those whose `validUntil` is in the past) are **excluded from recall by default** — they will not be returned at all. To review stale facts (for example, to flag and refresh them), pass `includeExpired: true` and check each result's `why.validityState` (`active` | `future` | `expired`). Recall does not return `validUntil` itself; validity is reported through `why.validityState`.
 
 ## Recall
 
@@ -62,6 +62,23 @@ Recommended default:
   "searchMode": "hybrid"
 }
 ```
+
+Optional filters:
+
+- `minConfidence` (0–1) — drop memories stored below your confidence bar.
+- `includeReceipt` (default true) — set `false` to omit the audit receipt for lower latency.
+- `includeExpired` (default false) — include facts past their `validUntil`.
+
+## Recall response
+
+Every recalled memory carries a `confidence` score (0–1) — use `minConfidence` to filter on it.
+
+When the receipt is enabled (the default), each recall also returns:
+
+- per memory: a `why` block (`cosine`, score multipliers, `finalScore`, `matchedVia`, `keywordMatches`, `validityState`) and a `supersedes` chain (`memoryId`, a short `snippet`, and `supersededAt`) for any older memory it replaced;
+- a top-level `receipt`: what was searched and `filtered` (counts for below-threshold, deduplicated, low-confidence, and outside-validity-window drops), so you can show exactly why each memory was used.
+
+The receipt is metadata — it is not counted against `_meta.tokens`.
 
 Use recall before:
 
